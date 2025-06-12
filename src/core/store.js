@@ -1,6 +1,9 @@
 let globalState = JSON.parse(localStorage.getItem('state')) || {
   books: [],
   columns: ['À lire', 'En cours', 'Lus'],
+  loading: true,
+  error: null,
+  initialized: false
 };
 
 const listeners = [];
