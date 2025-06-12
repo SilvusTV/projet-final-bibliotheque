@@ -11,7 +11,7 @@ export function App() {
   return el('div', {},
     el('h1', {}, '📚 Ma Bibliothèque en ligne'),
     el(AddBookForm),
-    el('div', { style: 'display: flex; gap: 1rem;' },
+    el('div', { className: 'app' },
       ...columns.map((title) => el(Column, { title }))
     )
   );

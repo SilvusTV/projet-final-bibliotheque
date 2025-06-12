@@ -23,23 +23,27 @@ export function AddBookForm() {
     setStatus('À lire');
   }
 
-  return el('form', { onsubmit: handleSubmit, style: 'margin-bottom: 1rem;' },
-    el('input', {
-      placeholder: 'Titre',
-      value: title,
-      oninput: (e) => setTitle(e.target.value),
-    }),
-    el('input', {
-      placeholder: 'Auteur',
-      value: author,
-      oninput: (e) => setAuthor(e.target.value),
-    }),
-    el('select', {
-        onchange: (e) => setStatus(e.target.value),
-        value: status,
-      },
-      ...getState().columns.map((col) => el('option', { value: col }, col))
-    ),
-    el('button', { type: 'submit' }, 'Ajouter')
-  );
+  return el('form', {
+    onsubmit: handleSubmit,
+    className: 'add-book-form'
+  },
+  el('input', {
+    placeholder: 'Titre',
+    value: title,
+    oninput: (e) => setTitle(e.target.value),
+  }),
+  el('input', {
+    placeholder: 'Auteur',
+    value: author,
+    oninput: (e) => setAuthor(e.target.value),
+  }),
+  el('select', {
+    onchange: (e) => setStatus(e.target.value),
+    value: status,
+  },
+    ...getState().columns.map((col) => el('option', { value: col }, col))
+  ),
+  el('button', { type: 'submit' }, 'Ajouter')
+);
+
 }
