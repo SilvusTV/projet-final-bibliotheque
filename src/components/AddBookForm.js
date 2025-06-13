@@ -20,7 +20,7 @@ export function AddBookForm() {
     setState({ books });
   }
 
-  return el('form', { onsubmit: handleSubmit, style: 'margin-bottom: 1rem;' },
+  return el('form', { onsubmit: handleSubmit, className: 'add-book-form' },
     el('input', {
       placeholder: 'Titre',
     }),

@@ -18,7 +18,7 @@ export function Column({ title }) {
   }
 
   return el('div', {
-      style: 'background: white; padding: 1rem; width: 200px; border-radius: 8px;',
+      className:'column',
       ondragover: (e) => {
         e.preventDefault();
         e.currentTarget.classList.add('column-hover');
