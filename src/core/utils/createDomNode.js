@@ -1,25 +1,43 @@
 export function createDomNode(vnode) {
-  if (typeof vnode === 'string') {
-    return document.createTextNode(vnode);
+  if (Array.isArray(vnode)) {
+    const fragment = document.createDocumentFragment();
+    vnode.forEach(child => fragment.appendChild(createDomNode(child)));
+    return fragment;
   }
 
-  const el = document.createElement(vnode.type);
+  if (vnode === null || vnode === undefined || vnode === false) {
+    return document.createTextNode('');
+  }
 
-  for (const [key, value] of Object.entries(vnode.props || {})) {
-    if (key === 'children') continue;
+  if (typeof vnode === 'string' || typeof vnode === 'number') {
+    return document.createTextNode(String(vnode));
+  }
 
-    if (key === 'className') {
-      el.className = value;
+  if (typeof vnode !== 'object' || !vnode.type) {
+    console.warn('❌ VNode invalide détecté :', vnode);
+    return document.createTextNode('');
+  }
+
+  const node = document.createElement(vnode.type);
+
+  const { props = {} } = vnode;
+
+  for (const [key, value] of Object.entries(props)) {
+    if (key === 'class' || key === 'className') {
+      node.className = value;
     } else if (key.startsWith('on') && typeof value === 'function') {
-      el.addEventListener(key.slice(2).toLowerCase(), value);
-    } else {
-      el.setAttribute(key, value);
+      const event = key.slice(2).toLowerCase();
+      node.addEventListener(event, value);
+    } else if (key !== 'children') {
+      node.setAttribute(key, value);
     }
   }
 
-  for (const child of vnode.props.children || []) {
-    el.appendChild(createDomNode(child));
-  }
+  const children = props.children || [];
+  children.forEach(child => {
+    const childNode = createDomNode(child);
+    node.appendChild(childNode);
+  });
 
-  return el;
+  return node;
 }

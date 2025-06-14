@@ -5,6 +5,11 @@ export function createElement(type, props = {}, ...children) {
 
   return {
     type,
-    props: { ...props, children: children.flat() },
+    props: {
+      ...props,
+      children: children
+        .flat()
+        .filter(c => c !== false && c !== null && c !== undefined),
+    },
   };
 }
