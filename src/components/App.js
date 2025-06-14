@@ -4,10 +4,14 @@ import { useStore } from '../core/store.js';
 import { AddBookForm } from './AddBookForm.js';
 import { Loader } from './Loader.js';
 import {ErrorMessage} from "./ErrorMessage.js";
-
+import { BookDetailModal } from './Modals/BookDetailModal.js';
+import { useState, setCurrentComponent } from '../core/hook/useState.js';
 
 export function App() {
   window.App = App; // for re-render in useState
+  setCurrentComponent(App);
+  const [selectedBook, setSelectedBook] = useState(null);
+  window.setSelectedBook = setSelectedBook;
   const { getState, setState } = useStore();
   const { columns, initialized } = getState();
   //hydrate store from the API
@@ -48,7 +52,12 @@ export function App() {
     el('h1', {}, '📚 Ma Bibliothèque en ligne'),
     el(AddBookForm),
     el('div', { className: 'app' },
-      ...columns.map((title) => el(Column, { title }))
+      ...columns.map((title) => el(Column, { title })),
+      selectedBook && BookDetailModal({
+        book: selectedBook,
+        onClose: () => setSelectedBook(null)
+      })
     )
+
   );
 }
