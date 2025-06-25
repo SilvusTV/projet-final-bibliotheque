@@ -12,7 +12,13 @@ export function BookDetailModal({ book, onClose }) {
       el('button', {
         onclick: onClose,
         style: 'margin-top: 1rem;'
-      }, 'Fermer')
+      }, 'Fermer'),
+      el('button', {
+        onclick: () => {
+          window.setState({ isBookDetailOpen: false, isBookFormOpen: true });
+        },
+        style: 'margin-top: 0.5rem;'
+      }, 'Modifier')
     ]
   });
 }

@@ -3,7 +3,9 @@ let globalState = JSON.parse(localStorage.getItem('state')) || {
   columns: ['À lire', 'En cours', 'Lus'],
   loading: true,
   error: null,
-  initialized: false
+  initialized: false,
+  isBookDetailOpen: false,
+  isBookFormOpen: false,
 };
 
 const listeners = [];

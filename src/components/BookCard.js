@@ -11,7 +11,10 @@ export function BookCard({book}) {
     el('strong', {}, book.title),
     el('p', {}, book.author),
     el('button', {
-      onclick: () => window.setSelectedBook(book),
+      onclick: () => {
+        window.setSelectedBookId(book.id);
+        window.setState({ isBookDetailOpen: true });
+      },
       style: 'margin-top: 0.5rem; font-size: 0.8rem;'
     }, 'Voir plus')
   );
