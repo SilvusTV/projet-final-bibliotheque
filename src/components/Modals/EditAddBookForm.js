@@ -22,7 +22,7 @@ export function EditAddBookForm({ book, onClose, key }) {
       id: isEdit ? book.id : Date.now(),
       title: form.title.value,
       author: form.author.value,
-      status: form.status.value,
+      status: book?.status || getState().columns[0]?.id,
       note: form.note.value,
       comment: form.comment.value
     };
@@ -53,7 +53,12 @@ export function EditAddBookForm({ book, onClose, key }) {
         el('select', {
           value: defaultState.status,
           name: 'status'
-        }, ...getState().columns.map(col => el('option', { value: col, ...(col === defaultState.status ? { selected: true } : {}) }, col))),
+        }, ...getState().columns.map(col =>
+          el('option', {
+            value: col.id,
+            ...(col.id === defaultState.status ? { selected: true } : {})
+          }, col.title)
+        )),
         el('input', {
           type: 'number',
           min: 0,
