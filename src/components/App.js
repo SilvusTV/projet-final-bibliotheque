@@ -6,6 +6,7 @@ import {ErrorMessage} from "./ErrorMessage.js";
 import { BookDetailModal } from './Modals/BookDetailModal.js';
 import { useState, setCurrentComponent } from '../core/hook/useState.js';
 import {EditAddBookForm} from "./Modals/EditAddBookForm.js";
+import {ManageColumnsModal} from "./Modals/ManageColumnsModal.js";
 
 export function App() {
 
@@ -14,6 +15,7 @@ export function App() {
   const { getState, setState } = useStore();
   const { columns, initialized } = getState();
   const [selectedBookId, setSelectedBookId] = useState(null);
+  const [showManageCols, setShowManageCols] = useState(false);
   window.setSelectedBookId = setSelectedBookId;
   window.setState = setState;
   //hydrate store from the API
@@ -26,7 +28,7 @@ export function App() {
           id: item.isbn,
           title: item.title,
           author: item.publisher,
-          status: 'À lire',
+          status: 1,
         }));
 
         setState({ books: fetchedBooks, loading: false, initialized: true, error: null });
@@ -59,6 +61,14 @@ export function App() {
       },
       style: 'margin-bottom: 1rem;'
     }, '➕ Ajouter un livre'),
+    el('button', {
+      onclick: () => setShowManageCols(true),
+      style: 'margin-bottom: 1rem;'
+    }, '🛠 Gérer les colonnes'),
+
+    showManageCols && ManageColumnsModal({
+      onClose: () => setShowManageCols(false)
+    }),
 
     getState().isBookFormOpen && EditAddBookForm({
       book: selectedBookId
@@ -71,7 +81,7 @@ export function App() {
     }),
 
     el('div', { className: 'app' },
-      ...columns.map((title) => el(Column, { title })),
+      ...columns.map((column) => el(Column, { column })),
       getState().isBookDetailOpen && selectedBookId &&
       BookDetailModal({
         book: getState().books.find(b => b.id === selectedBookId),

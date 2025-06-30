@@ -10,17 +10,24 @@ export function setCurrentComponent(componentFn) {
 }
 
 export function useState(initialValue) {
-  const index = currentIndex;
-  states[index] = states[index] ?? initialValue;
+  const componentKey = currentComponent;
+  states[componentKey] ??= [];
 
-  function setState(newValue) {
-    states[index] = newValue;
-    currentIndex = 0;
-    if (currentComponent) {
-      rerender(currentComponent, currentComponent);
-    }
+  const index = currentIndex;
+  const localStates = states[componentKey];
+
+  if (localStates[index] === undefined) {
+    localStates[index] = initialValue;
   }
 
+  const setState = (newValue) => {
+    states[componentKey][index] = newValue;
+    currentIndex = 0;
+    rerender(componentKey, componentKey);
+  };
+
+  const value = localStates[index];
   currentIndex++;
-  return [states[index], setState];
+  return [value, setState];
+
 }

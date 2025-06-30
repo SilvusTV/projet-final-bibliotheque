@@ -2,17 +2,17 @@ import { createElement as el } from '../core/createElement.js';
 import { BookCard } from './BookCard.js';
 import { useStore } from '../core/store.js';
 
-export function Column({ title }) {
+export function Column({ column }) {
   const { getState, setState } = useStore();
   const { books } = getState();
-  const filteredBooks = books.filter((b) => b.status === title);
+  const filteredBooks = books.filter((b) => b.status === column.id);
 
   function handleDrop(e) {
     e.preventDefault();
     const bookId = e.dataTransfer.getData('text/plain');
     if (!bookId) return;
     const updatedBooks = books.map((b) =>
-      b.id == bookId ? { ...b, status: title } : b
+      b.id === bookId ? { ...b, status: column.id } : b
     );
     setState({ books: updatedBooks });
   }
@@ -31,7 +31,7 @@ export function Column({ title }) {
         e.currentTarget.classList.remove('column-hover');
       }
     },
-    el('h2', {}, title),
+    el('h2', {}, column.title),
     ...filteredBooks.map((book) => el(BookCard, { book }))
   );
 }

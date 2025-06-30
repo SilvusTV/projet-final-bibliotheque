@@ -1,6 +1,19 @@
 let globalState = JSON.parse(localStorage.getItem('state')) || {
   books: [],
-  columns: ['À lire', 'En cours', 'Lus'],
+  columns: [
+    {
+    id: 1,
+    title: 'À lire',
+    },
+    {
+      id: 2,
+      title: 'En cours',
+    },
+    {
+      id: 3,
+      title: 'Lu',
+    }
+    ],
   loading: true,
   error: null,
   initialized: false,
@@ -16,7 +29,7 @@ export function useStore() {
   }
 
   function setState(partialState) {
-    globalState = { ...globalState, ...partialState };
+    globalState = {...globalState, ...partialState};
     localStorage.setItem('state', JSON.stringify(globalState));
     listeners.forEach((fn) => fn());
   }
@@ -26,5 +39,5 @@ export function useStore() {
     return () => listeners.filter((l) => l !== fn);
   }
 
-  return { getState, setState, subscribe };
+  return {getState, setState, subscribe};
 }
