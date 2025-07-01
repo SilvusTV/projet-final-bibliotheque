@@ -5,6 +5,10 @@ import {useStore} from "../../core/store.js";
 export function BookDetailModal({ book, onClose }) {
   const { getState } = useStore();
   const { columns } = getState()
+  function handleDelete() {
+    const updatedBooks = getState().books.filter(b => b.id !== book.id);
+    setState({ books: updatedBooks, isBookDetailOpen: false });
+  }
   return Modal({
     children: [
       el('h2', {}, book.title),
@@ -21,7 +25,11 @@ export function BookDetailModal({ book, onClose }) {
           window.setState({ isBookDetailOpen: false, isBookFormOpen: true });
         },
         style: 'margin-top: 0.5rem;'
-      }, 'Modifier')
+      }, 'Modifier'),
+      el('button', {
+        onclick: handleDelete,
+        style: 'margin-top: 1rem; background: #ffdddd; border: 1px solid #dd0000;'
+      }, '🗑 Supprimer ce livre')
     ]
   });
 }
