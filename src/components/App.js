@@ -7,19 +7,22 @@ import { BookDetailModal } from './Modals/BookDetailModal.js';
 import { useState, setCurrentComponent } from '../core/hook/useState.js';
 import {EditAddBookForm} from "./Modals/EditAddBookForm.js";
 import {ManageColumnsModal} from "./Modals/ManageColumnsModal.js";
+import { SettingsModal } from './Modals/SettingsModal.js';
+
 
 export function App() {
 
   window.App = App; // for re-render in useState
   setCurrentComponent(App);
   const { getState, setState } = useStore();
-  const { columns, initialized } = getState();
+  const { columns, initialized, loading, error } = getState();
   const [selectedBookId, setSelectedBookId] = useState(null);
   const [showManageCols, setShowManageCols] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
+
   window.setSelectedBookId = setSelectedBookId;
   window.setState = setState;
-  //hydrate store from the API
-  if (!initialized) {
+  if (!initialized && !loading && !error) {
     setState({ loading: true, error: null });
     fetch('https://keligmartin.github.io/api/books.json')
       .then(response => response.json())
@@ -69,8 +72,13 @@ export function App() {
     showManageCols && ManageColumnsModal({
       onClose: () => setShowManageCols(false)
     }),
+    el('button', {
+      onclick: () => setShowSettings(true)
+    }, '⚙️ Paramètres'),
+    showSettings && SettingsModal({ onClose: () => setShowSettings(false) }),
 
-    getState().isBookFormOpen && EditAddBookForm({
+
+  getState().isBookFormOpen && EditAddBookForm({
       book: selectedBookId
         ? getState().books.find(b => b.id === selectedBookId)
         : null,
