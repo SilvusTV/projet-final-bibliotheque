@@ -8,6 +8,7 @@ import { useState, setCurrentComponent } from '../core/hook/useState.js';
 import {EditAddBookForm} from "./Modals/EditAddBookForm.js";
 import {ManageColumnsModal} from "./Modals/ManageColumnsModal.js";
 import { SettingsModal } from './Modals/SettingsModal.js';
+import {ToastList} from "./ToastList.js";
 
 
 export function App() {
@@ -95,7 +96,7 @@ export function App() {
         book: getState().books.find(b => b.id === selectedBookId),
         onClose: () => setState({ isBookDetailOpen: false })
       }),
-    )
-
+    ),
+    ToastList()
   );
 }

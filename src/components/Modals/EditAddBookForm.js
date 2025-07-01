@@ -4,7 +4,7 @@ import { useStore } from '../../core/store.js';
 
 export function EditAddBookForm({ book, onClose, key }) {
   const isEdit = Boolean(book);
-  const { getState, setState } = useStore();
+  const { getState, setState, addToast } = useStore();
 
   const defaultState = {
     title: book?.title || '',
@@ -34,6 +34,7 @@ export function EditAddBookForm({ book, onClose, key }) {
 
     setState({ books });
     onClose();
+    addToast(isEdit ? '✅ Livre modifié avec succès !' : '✅ Livre ajouté avec succès !', 'success');
   }
 
   return Modal({

@@ -10,6 +10,7 @@ let globalState = {
   initialized: false,
   isBookDetailOpen: false,
   isBookFormOpen: false,
+  toasts: [],
 };
 
 const listeners = [];
@@ -113,6 +114,14 @@ export function useStore() {
     return globalState;
   }
 
+  function addToast(message, type = 'info') {
+    const toasts = [...globalState.toasts, { id: Date.now(), message, type }];
+    setState({ toasts });
+    setTimeout(() => {
+      setState({ toasts: globalState.toasts.filter(t => t.id !== toasts[toasts.length - 1].id) });
+    }, 3000);
+  }
+
   function setState(partialState) {
     if (!('initialized' in partialState)) {
       partialState.initialized = globalState.initialized;
@@ -138,7 +147,7 @@ export function useStore() {
     return () => listeners.filter((l) => l !== fn);
   }
 
-  return { getState, setState, subscribe };
+  return { getState, setState, subscribe, addToast };
 }
 
 // Init state once at app load

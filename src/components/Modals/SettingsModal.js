@@ -3,14 +3,14 @@ import { Modal } from '../Modal.js';
 import {closeDB, useStore} from '../../core/store.js';
 
 export function SettingsModal({ onClose }) {
-  const { getState, setState } = useStore();
+  const { getState, setState, addToast } = useStore();
 
   function handleReset() {
     const confirmReset = confirm("⚠️ Cette action supprimera toutes les données. Continuer ?");
     if (!confirmReset) return;
 
     closeDB();
-
+    addToast('✅ La base de données a été réinitialiser avec succès', 'success');
     const req = indexedDB.deleteDatabase('LibraryDB');
     req.onsuccess = () => location.reload();
     req.onerror = () => alert('Erreur lors de la suppression de la base IndexedDB.');
@@ -28,6 +28,7 @@ export function SettingsModal({ onClose }) {
     a.download = 'bibliotheque-backup.json';
     a.click();
     URL.revokeObjectURL(url);
+    addToast('📘 La base de données a été télécharger', 'success');
   }
 
   function handleUpload(e) {
@@ -41,6 +42,7 @@ export function SettingsModal({ onClose }) {
         if (!parsed.books || !parsed.columns) throw new Error("Fichier invalide");
         setState({ books: parsed.books, columns: parsed.columns });
         onClose();
+        addToast('📘 Livre ajouté avec succès', 'success');
       } catch (err) {
         alert("Erreur lors de l'importation du fichier.");
       }

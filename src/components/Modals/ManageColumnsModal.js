@@ -5,7 +5,7 @@ import { useState, setCurrentComponent } from '../../core/hook/useState.js';
 
 export function ManageColumnsModal({ onClose }) {
   setCurrentComponent('ManageColumnsModal_');
-  const { getState, setState } = useStore();
+  const { getState, setState, addToast } = useStore();
   const { columns, books } = getState();
   const [localCols, setLocalCols] = useState([...columns]);
 
@@ -14,12 +14,14 @@ export function ManageColumnsModal({ onClose }) {
     updated[index].title = value;
     console.log("updated", updated)
     setLocalCols(updated);
+    addToast("✅ Colonne renommée", "success");
   }
 
   function handleRemove(id) {
     const updated = localCols.filter((col) => col.id !== id);
     setLocalCols(updated);
     setState({ columns: updated });
+    addToast("✅ Colonne supprimée", "success");
   }
 
   function handleSubmit(e) {
@@ -36,6 +38,7 @@ export function ManageColumnsModal({ onClose }) {
     const newCol = {  id: localCols.length ? Math.max(...localCols.map(col => col.id)) + 1 : 1 , title};
     setLocalCols([...localCols, newCol]);
     setState({ columns: [...localCols, newCol] });
+    addToast("✅ Colonne ajoutée", "success");
   }
   return Modal({
     children: [
