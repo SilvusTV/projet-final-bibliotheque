@@ -51,6 +51,7 @@ export function SettingsModal({ onClose }) {
   }
 
   return Modal({
+    id: 'settings-modal',
     children: [
       el('h2', {}, '⚙️ Paramètres'),
       el('div', { style: 'margin-bottom: 1rem;' },

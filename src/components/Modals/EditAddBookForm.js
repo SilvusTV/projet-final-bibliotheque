@@ -38,6 +38,7 @@ export function EditAddBookForm({ book, onClose, key }) {
   }
 
   return Modal({
+    id: 'edit-add-book-modal',
     children: [
       el('h2', {}, isEdit ? 'Modifier le livre' : 'Ajouter un livre'),
       el('form', { onsubmit: handleSubmit },

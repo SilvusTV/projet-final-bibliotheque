@@ -95,9 +95,9 @@ async function initStateFromIndexedDB() {
 
   globalState.books = books;
   globalState.columns = columns.length ? columns : [
-    { id: 1, title: 'À lire' },
-    { id: 2, title: 'En cours' },
-    { id: 3, title: 'Lu' }
+    { id: 1, title: 'À lire', color: '#4CAF50' },
+    { id: 2, title: 'En cours', color: '#2196F3' },
+    { id: 3, title: 'Lu', color: '#9C27B0' }
   ];
   globalState.initialized = Boolean(initialized);
 

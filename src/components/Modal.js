@@ -1,6 +1,6 @@
 import { createElement as el } from '../core/createElement.js';
 
-export function Modal({ children }) {
+export function Modal({ id, children }) {
   return el('div', {
       style: `
       position: fixed;
@@ -14,6 +14,7 @@ export function Modal({ children }) {
     `
     },
     el('div', {
+      id: id,
       style: `
         background: white;
         padding: 2rem;

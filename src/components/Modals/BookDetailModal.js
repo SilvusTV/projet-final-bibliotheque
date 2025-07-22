@@ -10,6 +10,7 @@ export function BookDetailModal({ book, onClose }) {
     setState({ books: updatedBooks, isBookDetailOpen: false });
   }
   return Modal({
+    id: 'book-detail-modal',
     children: [
       el('h2', {}, book.title),
       el('p', {}, `✍️ Auteur : ${book.author}`),

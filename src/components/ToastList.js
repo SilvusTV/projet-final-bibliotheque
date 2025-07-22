@@ -13,15 +13,7 @@ export function ToastList() {
     },
     ...toasts.map(t =>
       el('div', {
-        style: `
-          padding: 0.75rem 1rem;
-          background: ${t.type === 'success' ? '#4caf50' :
-          t.type === 'error' ? '#f44336' :
-            '#2196f3'};
-          color: white;
-          border-radius: 5px;
-          box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-        `
+        className:`toast ${t.type}`
       }, t.message)
     )
   );

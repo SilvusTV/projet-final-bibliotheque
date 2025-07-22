@@ -19,6 +19,7 @@ export function Column({ column }) {
 
   return el('div', {
       className:'column',
+      style: column.color ? `border-top: 4px solid ${column.color};` : '',
       ondragover: (e) => {
         e.preventDefault();
         e.currentTarget.classList.add('column-hover');
@@ -31,7 +32,7 @@ export function Column({ column }) {
         e.currentTarget.classList.remove('column-hover');
       }
     },
-    el('h2', {}, column.title),
+    el('h2', { style: column.color ? `color: ${column.color};` : '' }, column.title),
     ...filteredBooks.map((book) => el(BookCard, { book }))
   );
 }
