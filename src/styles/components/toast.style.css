@@ -1,0 +1,18 @@
+.toast {
+    padding: 0.75rem 1rem;
+    color: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+
+    &.success {
+        background: #4caf50;
+    }
+
+    &.error {
+        background: #f44336;
+    }
+
+    &.info {
+        background: #2196f3;
+    }
+}

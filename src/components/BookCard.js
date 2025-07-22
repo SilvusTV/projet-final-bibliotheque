@@ -15,7 +15,7 @@ export function BookCard({book}) {
         window.setSelectedBookId(book.id);
         window.setState({ isBookDetailOpen: true });
       },
-      style: 'margin-top: 0.5rem; font-size: 0.8rem;'
+      className: 'btn primary sm',
     }, 'Voir plus')
   );
 }

@@ -1,0 +1,34 @@
+#settings-modal {
+    h2 {
+        margin-top: 0;
+        margin-bottom: 1.5rem;
+        color: #212529;
+        font-size: 1.5rem;
+    }
+
+    .settings-section {
+        margin-bottom: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .file-input-container {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 0.5rem;
+        color: #212529;
+        font-weight: 500;
+    }
+
+    .actions-container {
+        margin-top: 1.5rem;
+        display: flex;
+        justify-content: flex-end;
+    }
+}

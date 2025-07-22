@@ -1,0 +1,76 @@
+.input {
+    padding: 0.75rem;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    font-size: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+
+    &:focus {
+        outline: none;
+        border-color: #4361ee;
+        box-shadow: 0 0 0 2px rgba(67, 97, 238, 0.25);
+    }
+
+    &.disabled, &:disabled {
+        background-color: #e9ecef;
+        opacity: 0.65;
+        cursor: not-allowed;
+    }
+
+    &:is(textarea) {
+        min-height: 100px;
+        resize: vertical;
+    }
+
+    &:is(select) {
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23343a40' d='M6 8.825L1.175 4 2.05 3.125 6 7.075 9.95 3.125 10.825 4 6 8.825z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 0.75rem center;
+        background-size: 12px;
+        padding-right: 2rem;
+    }
+
+
+    &.sm {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.875rem;
+    }
+
+    &.lg {
+        padding: 1rem 1.25rem;
+        font-size: 1.125rem;
+    }
+
+    &.error {
+        border-color: #e63946;
+
+        &:focus {
+            box-shadow: 0 0 0 2px rgba(230, 57, 70, 0.25);
+        }
+    }
+
+    &.success {
+        border-color: #2a9d8f;
+
+        &:focus {
+            box-shadow: 0 0 0 2px rgba(42, 157, 143, 0.25);
+        }
+    }
+}
+
+.input-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #212529;
+}
+
+.input-help {
+    display: block;
+    margin-top: 0.25rem;
+    font-size: 0.875rem;
+    color: #6c757d;
+}

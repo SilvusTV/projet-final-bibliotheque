@@ -1,3 +1,14 @@
+/*Modals*/
+@import "src/styles/modals/BookDetail.style.css";
+@import "src/styles/modals/EditAddBookForm.style.css";
+@import "src/styles/modals/ManageColumnsModal.style.css";
+@import "src/styles/modals/SettingsModal.style.css";
+
+/*Components*/
+@import "src/styles/components/button.style.css";
+@import "src/styles/components/input.style.css";
+@import "src/styles/components/toast.style.css";
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -35,38 +46,3 @@ body {
     gap: 1rem;
 }
 
-.add-book-form {
-  margin-bottom: 1rem;
-  display: flex;
-  gap: 0.5rem;
-  align-items: flex-start;
-  flex-wrap: wrap;
-}
-
-.add-book-form input,
-.add-book-form select {
-  padding: 0.25rem;
-  font-size: 1rem;
-}
-
-.add-book-form button {
-  padding: 0.25rem 0.75rem;
-  font-size: 1rem;
-  cursor: pointer;
-}
-.toast{
-    padding: 0.75rem 1rem;
-    color: white;
-    border-radius: 5px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-
-    &.success {
-        background: #4caf50;
-    }
-    &.error {
-        background: #f44336;
-    }
-    &.info {
-        background: #2196f3;
-    }
-}

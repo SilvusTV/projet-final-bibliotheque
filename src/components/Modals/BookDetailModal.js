@@ -19,17 +19,20 @@ export function BookDetailModal({ book, onClose }) {
       el('p', {}, book.comment ? `💬 Commentaire : ${book.comment}` : 'Vous n’avez pas commenté ce livre.'),
       el('button', {
         onclick: onClose,
+        className: 'btn secondary',
         style: 'margin-top: 1rem;'
       }, 'Fermer'),
       el('button', {
         onclick: () => {
           window.setState({ isBookDetailOpen: false, isBookFormOpen: true });
         },
+        className: 'btn primary',
         style: 'margin-top: 0.5rem;'
       }, 'Modifier'),
       el('button', {
         onclick: handleDelete,
-        style: 'margin-top: 1rem; background: #ffdddd; border: 1px solid #dd0000;'
+        className: 'btn danger',
+        style: 'margin-top: 1rem;'
       }, '🗑 Supprimer ce livre')
     ]
   });

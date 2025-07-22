@@ -1,0 +1,19 @@
+#edit-add-book-modal {
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    h2 {
+        margin-top: 0;
+        margin-bottom: 1.5rem;
+        color: #212529;
+        font-size: 1.5rem;
+    }
+
+    button.cancel{
+        width: 100%;
+        margin-top: 1rem;
+    }
+}

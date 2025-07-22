@@ -1,6 +1,7 @@
 import { createElement as el } from '../../core/createElement.js';
 import { Modal } from '../Modal.js';
 import {closeDB, useStore} from '../../core/store.js';
+import { Input } from '../Input.js';
 
 export function SettingsModal({ onClose }) {
   const { getState, setState, addToast } = useStore();
@@ -54,24 +55,32 @@ export function SettingsModal({ onClose }) {
     id: 'settings-modal',
     children: [
       el('h2', {}, '⚙️ Paramètres'),
-      el('div', { style: 'margin-bottom: 1rem;' },
-        el('button', { onclick: handleReset }, '🧹 Réinitialiser la base'),
+      el('div', { className: 'settings-section' },
+        el('button', { 
+          onclick: handleReset,
+          className: 'btn danger'
+        }, '🧹 Réinitialiser la base'),
       ),
-      el('div', { style: 'margin-bottom: 1rem;' },
-        el('button', { onclick: handleDownload }, '💾 Télécharger les données (.json)')
+      el('div', { className: 'settings-section' },
+        el('button', { 
+          onclick: handleDownload,
+          className: 'btn primary'
+        }, '💾 Télécharger les données (.json)')
       ),
-      el('div', { style: 'margin-bottom: 1rem;' },
+      el('div', { className: 'file-input-container settings-section' },
         el('label', {}, '📥 Importer un fichier JSON :'),
-        el('input', {
+        Input({
           type: 'file',
           accept: 'application/json',
-          onchange: handleUpload
+          onChange: handleUpload
         })
       ),
-      el('button', {
-        onclick: onClose,
-        style: 'margin-top: 1rem;'
-      }, 'Fermer')
+      el('div', { className: 'actions-container' },
+        el('button', {
+          onclick: onClose,
+          className: 'btn secondary'
+        }, 'Fermer')
+      )
     ]
   });
 }

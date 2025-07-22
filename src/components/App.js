@@ -63,18 +63,21 @@ export function App() {
         setSelectedBookId(null);
         setState({ isBookFormOpen: true });
       },
-      style: 'margin-bottom: 1rem;'
+      style: 'margin-bottom: 1rem;',
+      className: 'btn secondary'
     }, '➕ Ajouter un livre'),
     el('button', {
       onclick: () => setShowManageCols(true),
-      style: 'margin-bottom: 1rem;'
+      style: 'margin-bottom: 1rem;',
+      className: 'btn secondary'
     }, '🛠 Gérer les colonnes'),
 
     showManageCols && ManageColumnsModal({
       onClose: () => setShowManageCols(false)
     }),
     el('button', {
-      onclick: () => setShowSettings(true)
+      onclick: () => setShowSettings(true),
+      className: 'btn secondary',
     }, '⚙️ Paramètres'),
     showSettings && SettingsModal({ onClose: () => setShowSettings(false) }),
 

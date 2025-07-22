@@ -2,6 +2,7 @@ import { createElement as el } from '../../core/createElement.js';
 import { Modal } from '../Modal.js';
 import { useStore } from '../../core/store.js';
 import { useState, setCurrentComponent } from '../../core/hook/useState.js';
+import { Input } from '../Input.js';
 
 export function ManageColumnsModal({ onClose }) {
   setCurrentComponent('ManageColumnsModal_');
@@ -58,46 +59,50 @@ export function ManageColumnsModal({ onClose }) {
       el('form', { onsubmit: handleSubmit },
         ...localCols.map((col, index) => {
           const hasBooks = books.some(b => b.status === col.id);
-          return el('div', { style: 'display: flex; gap: 0.5rem; margin-bottom: 0.5rem;' },
-            el('input', {
+          return el('div', { className: 'column-row' },
+            Input({
               value: col.title,
-              oninput: (e) => handleRename(index, e.target.value),
-              style: 'flex-grow: 1;'
+              onChange: (e) => handleRename(index, e.target.value),
+              className: 'title-input'
             }),
-            el('input', {
+            Input({
               type: 'color',
               value: col.color || '#FFFFFF',
-              oninput: (e) => handleColorChange(index, e.target.value),
-              style: 'width: 40px; height: 30px; padding: 0;'
+              onChange: (e) => handleColorChange(index, e.target.value),
+              className: 'color-input'
             }),
             el('button', {
               type: 'button',
               onclick: () => handleRemove(col.id),
-              ...(hasBooks ? { disabled: true } : {}),
-              style: hasBooks ? 'opacity: 0.5; cursor: not-allowed;' : ''
-            }, '❌')
+              className: `btn danger sm remove-btn ${hasBooks ? 'disabled' : ''}`,
+              ...(hasBooks ? { disabled: true } : {})
+            }, '🗑️')
           );
         }),
-        el('div', { style: 'margin-top: 1rem;' },
-          el('input', {
+        el('div', { className: 'new-column-container' },
+          Input({
             id: 'newColTitle',
             placeholder: 'Nouvelle colonne',
-            oninput: (e) => {
+            onChange: (e) => {
               console.log('typed', e.target.value);
             }
           }),
           el('button', {
             type: 'button',
-            onclick: () =>  handleAdd()
+            onclick: () => handleAdd(),
+            className: 'btn primary sm'
           }, '➕ Ajouter')
         ),
-        el('div', { style: 'margin-top: 1rem;' },
-          el('button', { type: 'submit' }, 'Enregistrer'),
+        el('div', { className: 'actions-container' },
           el('button', {
             type: 'button',
             onclick: onClose,
-            style: 'margin-left: 1rem;'
-          }, 'Annuler')
+            className: 'btn secondary'
+          }, 'Annuler'),
+          el('button', { 
+            type: 'submit',
+            className: 'btn primary'
+          }, 'Enregistrer')
         )
       )
     ]

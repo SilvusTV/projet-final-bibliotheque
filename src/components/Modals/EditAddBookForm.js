@@ -1,6 +1,7 @@
 import { createElement as el } from '../../core/createElement.js';
 import { Modal } from '../Modal.js';
 import { useStore } from '../../core/store.js';
+import { Input } from '../Input.js';
 
 export function EditAddBookForm({ book, onClose, key }) {
   const isEdit = Boolean(book);
@@ -9,7 +10,7 @@ export function EditAddBookForm({ book, onClose, key }) {
   const defaultState = {
     title: book?.title || '',
     author: book?.author?.toString() || '',
-    status: book?.status || 'À lire',
+    status: book?.status || getState().columns[0]?.id,
     note: book?.note || '',
     comment: book?.comment || ''
   };
@@ -22,7 +23,7 @@ export function EditAddBookForm({ book, onClose, key }) {
       id: isEdit ? book.id : Date.now(),
       title: form.title.value,
       author: form.author.value,
-      status: book?.status || getState().columns[0]?.id,
+      status: Number(form.status.value),
       note: form.note.value,
       comment: form.comment.value
     };
@@ -42,26 +43,28 @@ export function EditAddBookForm({ book, onClose, key }) {
     children: [
       el('h2', {}, isEdit ? 'Modifier le livre' : 'Ajouter un livre'),
       el('form', { onsubmit: handleSubmit },
-        el('input', {
+        Input({
           placeholder: 'Titre',
           value: defaultState.title,
-          name: 'title'
+          name: 'title',
+          required: true
         }),
-        el('input', {
+        Input({
           placeholder: 'Auteur',
           value: defaultState.author,
-          name: 'author'
+          name: 'author',
+          required: true
         }),
-        el('select', {
+        Input({
+          type: 'select',
           value: defaultState.status,
-          name: 'status'
-        }, ...getState().columns.map(col =>
-          el('option', {
+          name: 'status',
+          options: getState().columns.map(col => ({
             value: col.id,
-            ...(col.id === defaultState.status ? { selected: true } : {})
-          }, col.title)
-        )),
-        el('input', {
+            label: col.title
+          }))
+        }),
+        Input({
           type: 'number',
           min: 0,
           max: 5,
@@ -69,15 +72,20 @@ export function EditAddBookForm({ book, onClose, key }) {
           value: defaultState.note,
           name: 'note'
         }),
-        el('textarea', {
+        Input({
+          type: 'textarea',
           placeholder: 'Commentaire',
-          name: 'comment'
-        }, defaultState.comment),
-        el('button', { type: 'submit' }, isEdit ? 'Modifier' : 'Ajouter')
+          name: 'comment',
+          value: defaultState.comment
+        }),
+        el('button', { 
+          type: 'submit',
+          className: 'btn primary'
+        }, isEdit ? 'Modifier' : 'Ajouter')
       ),
       el('button', {
         onclick: onClose,
-        style: 'margin-top: 1rem;'
+        className: 'btn secondary cancel',
       }, 'Annuler')
     ]
   });
