@@ -20,7 +20,7 @@ export function EditAddBookForm({ book, onClose, key }) {
     const form = e.target;
 
     const bookData = {
-      id: isEdit ? book.id : Date.now(),
+      id: isEdit ? book.id : Date.now().toString(),
       title: form.title.value,
       author: form.author.value,
       status: Number(form.status.value),
